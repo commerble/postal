@@ -51,14 +51,17 @@ namespace Commerble.Postal
                 Tuple.Create("を除く", "「[^」]*を除く」", ""),
                 Tuple.Create("を除く", "（[^）]*を除く）", ""),
                 Tuple.Create("「", "「[０-９～]*」", ""),
+                Tuple.Create("階）", "（([０-９]*階)）", "$1"),
+                Tuple.Create("の次に番地がくる場合", ".*の次に番地がくる場合", ""),
+                Tuple.Create("一円", ".*一円", ""),
                 // 番地・丁目・番は救わない(カギカッコを先に削除ね)
                 Tuple.Create("「", "「.*[０-９]*(丁目|番地).*」", ""), 
                 Tuple.Create("（", "（.*[０-９]*(丁目|番地|番).*）", ""),
-                Tuple.Create("の次に番地がくる場合", ".*の次に番地がくる場合", ""),
-                Tuple.Create("一円", ".*一円", ""),
                 // 小豆郡土庄町すまぬ
                 Tuple.Create("甲、乙", "甲、乙（[^）]*）", "甲、乙"),
-                Tuple.Create("階）", "（([０-９]*階)）", "$1"),
+                // 岩手すまぬ
+                Tuple.Create("地割～", "（?第?[０-９]*地割～.*$", ""),
+                Tuple.Create("地割、", "（?第?[０-９]*地割、.*$", ""),
             };
             foreach (var r in regexs)
             {
@@ -71,12 +74,6 @@ namespace Commerble.Postal
         public IEnumerable<string> Parts(string street)
         {
             var normal = street;
-            // 岩手すまぬ
-            if (normal.Contains("地割～") || normal.Contains("地割、"))
-            {
-                normal = Regex.Replace(normal, "第?[０-９]*地割", "").Replace("～", "、");
-            }
-
             return normal.Split('、').Where(p => !p.Contains('～') && !string.IsNullOrEmpty(p)).Distinct();
         }
 
