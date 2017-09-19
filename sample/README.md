@@ -1,7 +1,5 @@
 # 手順
 
-#郵政のデータをきれいにする。
-
 ## 郵政CSVデータ(KEN_ALL.csv)をダウンロード
 http://www.post.japanpost.jp/zipcode/dl/kogaki-zip.html  
 の[全国一括]をダウンロードする。
