@@ -1,0 +1,5 @@
+11.0
+3
+1       SQLCHAR             0       10      ","      1     zipCode            Japanese_CI_AS
+2       SQLCHAR             0       10      ","      2     jisCode            Japanese_CI_AS
+3       SQLCHAR             0       12      "\r\n"   3     pref               ""

@@ -1,0 +1,7 @@
+11.0
+5
+1       SQLCHAR             0       12      ","      1     zipCodeAddrId                  ""
+2       SQLCHAR             0       10      ","      2     zipCode                        Japanese_CI_AS
+3       SQLCHAR             0       10      ","      3     jisCode                        Japanese_CI_AS
+4       SQLCHAR             0       256     ","      4     city                           Japanese_CI_AS
+5       SQLCHAR             0       256     "\r\n"   5     street                         Japanese_CI_AS
