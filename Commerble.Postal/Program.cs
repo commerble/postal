@@ -10,14 +10,17 @@ namespace Commerble.Postal
 {
     public class Options
     {
-        [Option('i', "Input csv file path", Required = true)]
+        [Option('i', "Input", HelpText = "Input csv file path", Required = true)]
         public string Input { get; set; }
 
-        [Option('t', "Razor template file path")]
+        [Option('t', "Template", HelpText = "Razor template file path")]
         public string Template { get; set; }
 
-        [Option('e', "Input file encoding", DefaultValue = "Shift_JIS")]
+        [Option('e', "Encode", HelpText = "Input file encoding", DefaultValue = "Shift_JIS")]
         public string Encoding { get; set; }
+
+        [Option('m', "Mode", HelpText = "Parse mode(Ken|Jigyosyo)", DefaultValue = ParseMode.Ken)]
+        public ParseMode Mode { get; set; }
 
         [HelpOption]
         public string GetUsage()
@@ -34,7 +37,7 @@ namespace Commerble.Postal
             if (!Parser.Default.ParseArguments(args, options))
                 return;
 
-            var postals = PostalLoader.Load(options.Input, Encoding.GetEncoding(options.Encoding));
+            var postals = PostalLoader.Load(options.Input, Encoding.GetEncoding(options.Encoding), options.Mode);
             var normalizar = new PostalNormalizar();
             var normalized = normalizar.Normalize(postals).Distinct();
 

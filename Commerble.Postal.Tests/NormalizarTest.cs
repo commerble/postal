@@ -101,20 +101,20 @@ namespace Commerble.Postal.Tests
         public void 以下に掲載がない場合()
         {
             var inputs = new[] { "01101,\"060  \",\"0600000\",\"ﾎｯｶｲﾄﾞｳ\",\"ｻｯﾎﾟﾛｼﾁｭｳｵｳｸ\",\"ｲｶﾆｹｲｻｲｶﾞﾅｲﾊﾞｱｲ\",\"北海道\",\"札幌市中央区\",\"以下に掲載がない場合\",0,0,0,0,0,0" };
-            var postals = inputs.Select(PostalLoader.Parse);
+            var postals = inputs.Select(_ => PostalLoader.Parse(_, ParseMode.Ken));
             var normalizar = new PostalNormalizar();
             var normalized = normalizar.Normalize(postals);
             var postal = normalized.First();
 
-            Assert.AreEqual("0600000",postal.Code);
-            Assert.AreEqual("",postal.Street);
+            Assert.AreEqual("0600000", postal.Code);
+            Assert.AreEqual("", postal.Street);
         }
 
         [TestMethod]
         public void 地階階層不明()
         {
             var inputs = new[] { "04101,\"980  \",\"9806190\",\"ﾐﾔｷﾞｹﾝ\",\"ｾﾝﾀﾞｲｼｱｵﾊﾞｸ\",\"ﾁｭｳｵｳｱｴﾙ(ﾁｶｲ･ｶｲｿｳﾌﾒｲ)\",\"宮城県\",\"仙台市青葉区\",\"中央アエル（地階・階層不明）\",0,0,0,0,0,0" };
-            var postals = inputs.Select(PostalLoader.Parse);
+            var postals = inputs.Select(_ => PostalLoader.Parse(_, ParseMode.Ken));
             var normalizar = new PostalNormalizar();
             var normalized = normalizar.Normalize(postals);
             var postal = normalized.First();
@@ -126,7 +126,7 @@ namespace Commerble.Postal.Tests
         public void 番地その１()
         {
             var inputs = new[] { "01106,\"005  \",\"0050865\",\"ﾎｯｶｲﾄﾞｳ\",\"ｻｯﾎﾟﾛｼﾐﾅﾐｸ\",\"ﾄｷﾜ(1-131ﾊﾞﾝﾁ)\",\"北海道\",\"札幌市南区\",\"常盤（１～１３１番地）\",1,0,0,0,0,0" };
-            var postals = inputs.Select(PostalLoader.Parse);
+            var postals = inputs.Select(_ => PostalLoader.Parse(_, ParseMode.Ken));
             var normalizar = new PostalNormalizar();
             var normalized = normalizar.Normalize(postals);
             var postal = normalized.First();
@@ -138,7 +138,7 @@ namespace Commerble.Postal.Tests
         public void 番地その２()
         {
             var inputs = new[] { "01106,\"005  \",\"0050840\",\"ﾎｯｶｲﾄﾞｳ\",\"ｻｯﾎﾟﾛｼﾐﾅﾐｸ\",\"ﾌｼﾞﾉ(400､400-2ﾊﾞﾝﾁ)\",\"北海道\",\"札幌市南区\",\"藤野（４００、４００－２番地）\",1,0,0,0,0,0" };
-            var postals = inputs.Select(PostalLoader.Parse);
+            var postals = inputs.Select(_ => PostalLoader.Parse(_, ParseMode.Ken));
             var normalizar = new PostalNormalizar();
             var normalized = normalizar.Normalize(postals);
             var postal = normalized.First();
@@ -153,7 +153,7 @@ namespace Commerble.Postal.Tests
                 "28109,\"65111\",\"6511102\",\"ﾋｮｳｺﾞｹﾝ\",\"ｺｳﾍﾞｼｷﾀｸ\",\"ﾔﾏﾀﾞﾁｮｳｼﾓﾀﾆｶﾞﾐ(ｵｵｶﾐﾀﾞﾆ､ｼｭｳﾎｳｶﾞﾊﾗ､ﾅｶｲﾁﾘﾔﾏ<9ﾊﾞﾝﾁﾉ4､12ﾊﾞﾝﾁｦﾉｿﾞｸ>ﾅｶﾞ\",\"兵庫県\",\"神戸市北区\",\"山田町下谷上（大上谷、修法ケ原、中一里山「９番地の４、１２番地を除く」長\",1,1,0,0,0,0",
                 "28109,\"65111\",\"6511102\",\"ﾋｮｳｺﾞｹﾝ\",\"ｺｳﾍﾞｼｷﾀｸ\",\"ｵﾔﾏ､ﾌﾀﾀﾋﾞｺｳｴﾝ)\",\"兵庫県\",\"神戸市北区\",\"尾山、再度公園）\",1,1,0,0,0,0"
             };
-            var postals = inputs.Select(PostalLoader.Parse);
+            var postals = inputs.Select(_ => PostalLoader.Parse(_, ParseMode.Ken));
             var normalizar = new PostalNormalizar();
             var normalized = normalizar.Normalize(postals);
 
@@ -166,7 +166,7 @@ namespace Commerble.Postal.Tests
         public void 丁目その１()
         {
             var inputs = new[] { "01101,\"060  \",\"0600042\",\"ﾎｯｶｲﾄﾞｳ\",\"ｻｯﾎﾟﾛｼﾁｭｳｵｳｸ\",\"ｵｵﾄﾞｵﾘﾆｼ(1-19ﾁｮｳﾒ)\",\"北海道\",\"札幌市中央区\",\"大通西（１～１９丁目）\",1,0,1,0,0,0" };
-            var postals = inputs.Select(PostalLoader.Parse);
+            var postals = inputs.Select(_ => PostalLoader.Parse(_, ParseMode.Ken));
             var normalizar = new PostalNormalizar();
             var normalized = normalizar.Normalize(postals);
             var postal = normalized.First();
@@ -178,7 +178,7 @@ namespace Commerble.Postal.Tests
         public void 丁目その２()
         {
             var inputs = new[] { "01106,\"005  \",\"0050030\",\"ﾎｯｶｲﾄﾞｳ\",\"ｻｯﾎﾟﾛｼﾐﾅﾐｸ\",\"ﾐﾅﾐ30ｼﾞｮｳﾆｼ(8ﾁｮｳﾒ)\",\"北海道\",\"札幌市南区\",\"南三十条西（８丁目）\",0,0,1,0,0,0" };
-            var postals = inputs.Select(PostalLoader.Parse);
+            var postals = inputs.Select(_ => PostalLoader.Parse(_, ParseMode.Ken));
             var normalizar = new PostalNormalizar();
             var normalized = normalizar.Normalize(postals);
             var postal = normalized.First();
@@ -190,7 +190,7 @@ namespace Commerble.Postal.Tests
         public void 丁目その３()
         {
             var inputs = new[] { "03205,\"025  \",\"0250056\",\"ｲﾜﾃｹﾝ\",\"ﾊﾅﾏｷｼ\",\"ｶﾐｷﾀﾏﾝﾁｮｳﾒ\",\"岩手県\",\"花巻市\",\"上北万丁目\",0,0,0,0,0,0" };
-            var postals = inputs.Select(PostalLoader.Parse);
+            var postals = inputs.Select(_ => PostalLoader.Parse(_, ParseMode.Ken));
             var normalizar = new PostalNormalizar();
             var normalized = normalizar.Normalize(postals);
             var postal = normalized.First();
@@ -202,7 +202,7 @@ namespace Commerble.Postal.Tests
         public void 丁目その４()
         {
             var inputs = new[] { "05214,\"01801\",\"0180126\",\"ｱｷﾀｹﾝ\",\"ﾆｶﾎｼ\",\"ｷｻｶﾀﾏﾁ1ﾁｮｳﾒｼｵｺｼ\",\"秋田県\",\"にかほ市\",\"象潟町１丁目塩越\",0,0,0,0,0,0" };
-            var postals = inputs.Select(PostalLoader.Parse);
+            var postals = inputs.Select(_ => PostalLoader.Parse(_, ParseMode.Ken));
             var normalizar = new PostalNormalizar();
             var normalized = normalizar.Normalize(postals);
             var postal = normalized.First();
@@ -217,7 +217,7 @@ namespace Commerble.Postal.Tests
                 "01407,\"04824\",\"0482402\",\"ﾎｯｶｲﾄﾞｳ\",\"ﾖｲﾁｸﾞﾝﾆｷﾁｮｳ\",\"ｵｵｴ(1ﾁｮｳﾒ､2ﾁｮｳﾒ<651､662､668ﾊﾞﾝﾁ>ｲｶﾞｲ､3ﾁｮｳﾒ5､1\",\"北海道\",\"余市郡仁木町\",\"大江（１丁目、２丁目「６５１、６６２、６６８番地」以外、３丁目５、１\",1,0,1,0,0,0",
                 "01407,\"04824\",\"0482402\",\"ﾎｯｶｲﾄﾞｳ\",\"ﾖｲﾁｸﾞﾝﾆｷﾁｮｳ\",\"3-4､20､678､687ﾊﾞﾝﾁ)\",\"北海道\",\"余市郡仁木町\",\"３－４、２０、６７８、６８７番地）\",1,0,1,0,0,0"
             };
-            var postals = inputs.Select(PostalLoader.Parse);
+            var postals = inputs.Select(_ => PostalLoader.Parse(_, ParseMode.Ken));
             var normalizar = new PostalNormalizar();
             var normalized = normalizar.Normalize(postals);
 
@@ -232,7 +232,7 @@ namespace Commerble.Postal.Tests
             var inputs = new[] {
                 "03202,\"02824\",\"0282402\",\"ｲﾜﾃｹﾝ\",\"ﾐﾔｺｼ\",\"ｶﾜｲ(ﾀﾞｲ9ﾁﾜﾘ-ﾀﾞｲ11ﾁﾜﾘ)\",\"岩手県\",\"宮古市\",\"川井（第９地割～第１１地割）\",1,1,0,0,0,0"
             };
-            var postals = inputs.Select(PostalLoader.Parse);
+            var postals = inputs.Select(_ => PostalLoader.Parse(_, ParseMode.Ken));
             var normalizar = new PostalNormalizar();
             var normalized = normalizar.Normalize(postals);
 
@@ -247,7 +247,7 @@ namespace Commerble.Postal.Tests
             var inputs = new[] {
                 "03202,\"02825\",\"0282504\",\"ｲﾜﾃｹﾝ\",\"ﾐﾔｺｼ\",\"ﾊｺｲｼ(ﾀﾞｲ2ﾁﾜﾘ<70-136>-ﾀﾞｲ4ﾁﾜﾘ<3-11>)\",\"岩手県\",\"宮古市\",\"箱石（第２地割「７０～１３６」～第４地割「３～１１」）\",1,1,0,0,0,0"
             };
-            var postals = inputs.Select(PostalLoader.Parse);
+            var postals = inputs.Select(_ => PostalLoader.Parse(_, ParseMode.Ken));
             var normalizar = new PostalNormalizar();
             var normalized = normalizar.Normalize(postals);
 
@@ -263,7 +263,7 @@ namespace Commerble.Postal.Tests
                 "03302,\"02851\",\"0285102\",\"ｲﾜﾃｹﾝ\",\"ｲﾜﾃｸﾞﾝｸｽﾞﾏｷﾏﾁ\",\"ｸｽﾞﾏｷ(ﾀﾞｲ40ﾁﾜﾘ<57ﾊﾞﾝﾁ125､176ｦﾉｿﾞｸ>-ﾀﾞｲ45\",\"岩手県\",\"岩手郡葛巻町\",\"葛巻（第４０地割「５７番地１２５、１７６を除く」～第４５\",1,1,0,0,0,0",
                 "03302,\"02851\",\"0285102\",\"ｲﾜﾃｹﾝ\",\"ｲﾜﾃｸﾞﾝｸｽﾞﾏｷﾏﾁ\",\"ﾁﾜﾘ)\",\"岩手県\",\"岩手郡葛巻町\",\"地割）\",1,1,0,0,0,0"
             };
-            var postals = inputs.Select(PostalLoader.Parse);
+            var postals = inputs.Select(_ => PostalLoader.Parse(_, ParseMode.Ken));
             var normalizar = new PostalNormalizar();
             var normalized = normalizar.Normalize(postals);
 
@@ -278,7 +278,7 @@ namespace Commerble.Postal.Tests
             var inputs = new[] {
                 "03366,\"02955\",\"0295503\",\"ｲﾜﾃｹﾝ\",\"ﾜｶﾞｸﾞﾝﾆｼﾜｶﾞﾏﾁ\",\"ｱﾅｱｹ22ﾁﾜﾘ､ｱﾅｱｹ23ﾁﾜﾘ\",\"岩手県\",\"和賀郡西和賀町\",\"穴明２２地割、穴明２３地割\",0,0,0,1,0,0"
             };
-            var postals = inputs.Select(PostalLoader.Parse);
+            var postals = inputs.Select(_ => PostalLoader.Parse(_, ParseMode.Ken));
             var normalizar = new PostalNormalizar();
             var normalized = normalizar.Normalize(postals);
 
@@ -293,7 +293,7 @@ namespace Commerble.Postal.Tests
             var inputs = new[] {
                 "03366,\"02955\",\"0295523\",\"ｲﾜﾃｹﾝ\",\"ﾜｶﾞｸﾞﾝﾆｼﾜｶﾞﾏﾁ\",\"ｴｯﾁｭｳﾊﾀ64ﾁﾜﾘ-ｴｯﾁｭｳﾊﾀ66ﾁﾜﾘ\",\"岩手県\",\"和賀郡西和賀町\",\"越中畑６４地割～越中畑６６地割\",0,0,0,1,0,0"
             };
-            var postals = inputs.Select(PostalLoader.Parse);
+            var postals = inputs.Select(_ => PostalLoader.Parse(_, ParseMode.Ken));
             var normalizar = new PostalNormalizar();
             var normalized = normalizar.Normalize(postals);
 
@@ -308,7 +308,7 @@ namespace Commerble.Postal.Tests
             var inputs = new[] {
                 "03366,\"02955\",\"0295507\",\"ｲﾜﾃｹﾝ\",\"ﾜｶﾞｸﾞﾝﾆｼﾜｶﾞﾏﾁ\",\"ｵｵｸﾂ36ﾁﾜﾘ\",\"岩手県\",\"和賀郡西和賀町\",\"大沓３６地割\",0,0,0,0,0,0"
             };
-            var postals = inputs.Select(PostalLoader.Parse);
+            var postals = inputs.Select(_ => PostalLoader.Parse(_, ParseMode.Ken));
             var normalizar = new PostalNormalizar();
             var normalized = normalizar.Normalize(postals);
 
@@ -323,7 +323,7 @@ namespace Commerble.Postal.Tests
             var inputs = new[] {
                 "03366,\"02955\",\"0240341\",\"ｲﾜﾃｹﾝ\",\"ﾜｶﾞｸﾞﾝﾆｼﾜｶﾞﾏﾁ\",\"ｽｷﾞﾅﾊﾀ44ﾁﾜﾘ(ﾕﾀﾞﾀﾞﾑｶﾝﾘｼﾞﾑｼｮ､ｳｼﾛｸﾞﾁﾔﾏ､ｱﾃﾗｸ)\",\"岩手県\",\"和賀郡西和賀町\",\"杉名畑４４地割（湯田ダム管理事務所、後口山、当楽）\",1,0,0,0,0,0"
             };
-            var postals = inputs.Select(PostalLoader.Parse);
+            var postals = inputs.Select(_ => PostalLoader.Parse(_, ParseMode.Ken));
             var normalizar = new PostalNormalizar();
             var normalized = normalizar.Normalize(postals);
 
@@ -338,13 +338,24 @@ namespace Commerble.Postal.Tests
             var inputs = new[] {
                 "03507,\"02879\",\"0287915\",\"ｲﾜﾃｹﾝ\",\"ｸﾉﾍｸﾞﾝﾋﾛﾉﾁｮｳ\",\"ﾀﾈｲﾁﾀﾞｲ15ﾁﾜﾘ-ﾀﾞｲ21ﾁﾜﾘ(ｶﾇｶ､ｼｮｳｼﾞｱｲ､ﾐﾄﾞﾘﾁｮｳ､ｵｵｸﾎﾞ､ﾀｶﾄﾘ)\",\"岩手県\",\"九戸郡洋野町\",\"種市第１５地割～第２１地割（鹿糠、小路合、緑町、大久保、高取）\",0,1,0,0,0,0"
             };
-            var postals = inputs.Select(PostalLoader.Parse);
+            var postals = inputs.Select(_ => PostalLoader.Parse(_, ParseMode.Ken));
             var normalizar = new PostalNormalizar();
             var normalized = normalizar.Normalize(postals);
 
             var streets = normalized.Select(p => p.Street);
             var results = new[] { "種市" };
             Assert.AreEqual(string.Join(",", streets), string.Join(",", results));
+        }
+
+        [TestMethod]
+        public void 事業所()
+        {
+            var inputs = new[] {
+                "01101,\"(ｶﾌﾞ) ﾆﾎﾝｹｲｻﾞｲｼﾝﾌﾞﾝｼﾔ ｻﾂﾎﾟﾛｼｼﾔ\",\"株式会社日本経済新聞社札幌支社\",\"北海道\",\"札幌市中央区\",\"北一条西\",\"６丁目１－２アーバンネット札幌ビル２Ｆ\",\"0608621\",\"060  \",\"札幌中央\",0,0,0"
+            };
+            var postal = inputs.Select(_ => PostalLoader.Parse(_, ParseMode.Jigyosyo)).First();
+
+            Assert.AreEqual("株式会社日本経済新聞社札幌支社", postal.Name);
         }
     }
 }
