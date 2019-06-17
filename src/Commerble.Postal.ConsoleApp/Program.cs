@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using CommandLine.Text;
+using RazorLight;
 using System;
 using System.IO;
 using System.Linq;
@@ -21,21 +22,23 @@ namespace Commerble.Postal.ConsoleApp
         [Option('m', "Mode", HelpText = "Parse mode(Ken|Jigyosyo)", Default = ParseMode.Ken)]
         public ParseMode Mode { get; set; }
 
-        [HelpOption]
-        public string GetUsage()
-        {
-            return HelpText.AutoBuild(this, current => HelpText.DefaultParsingErrorsHandler(this, current));
-        }
+        //[HelpOption]
+        //public string GetUsage()
+        //{
+        //    return HelpText.AutoBuild(this, current => HelpText.DefaultParsingErrorsHandler(this, current));
+        //}
     }
 
     class Program
     {
         static void Main(string[] args)
         {
-            var options = new Options();
-            if (!Parser.Default.ParseArguments(args, options))
+            Options options = null;
+            Parser.Default.ParseArguments<Options>(args).WithParsed(o => options = o);
+            if (options == null)
                 return;
 
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             var postals = PostalLoader.Load(options.Input, Encoding.GetEncoding(options.Encoding), options.Mode);
             var normalizar = new PostalNormalizar();
             var normalized = normalizar.Normalize(postals).Distinct();
@@ -50,9 +53,13 @@ namespace Commerble.Postal.ConsoleApp
             }
             else
             {
-                var source = File.ReadAllText(options.Template);
-                var template = Template.Compile(source);
-                Console.WriteLine(template.Render(normalized));
+                var template = File.ReadAllText(options.Template);
+
+                var razorEngine = new RazorLightEngineBuilder()
+                    .UseMemoryCachingProvider()
+                    .Build();
+                var rendered = razorEngine.CompileRenderAsync("template", template, normalized).Result;
+                Console.WriteLine(rendered);
             }
         }
     }
