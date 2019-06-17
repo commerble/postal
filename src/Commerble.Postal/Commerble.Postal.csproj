@@ -7,6 +7,7 @@
     <PackageProjectUrl>https://github.com/commerble/postal</PackageProjectUrl>
     <RepositoryUrl>https://github.com/commerble/postal</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <PackageIconUrl>https://www.commerble.com/files/images/favicon.ico</PackageIconUrl>
   </PropertyGroup>
 
 </Project>
