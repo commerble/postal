@@ -33,7 +33,8 @@ namespace Commerble.Postal
                     Code = trim(csv[7]),
                     Prefecture = trim(csv[3]),
                     City = trim(csv[4]),
-                    Street = trim(csv[6]),
+                    Street = trim(csv[5]),
+                    Street2 = trim(csv[6]),
                     Name = trim(csv[2])
                 };
 
