@@ -357,7 +357,23 @@ namespace Commerble.Postal.Tests
 
             Assert.AreEqual("株式会社日本経済新聞社札幌支社", postal.Name);
         }
-        
+
+        [TestMethod]
+        public void 山梨県北都留郡小菅村()
+        {
+            var inputs = new[] {
+                "19442,\"40902\",\"4090200\",\"ﾔﾏﾅｼｹﾝ\",\"ｷﾀﾂﾙｸﾞﾝｺｽｹﾞﾑﾗ\",\"ｲｶﾆｹｲｻｲｶﾞﾅｲﾊﾞｱｲ\",\"山梨県\",\"北都留郡小菅村\",\"以下に掲載がない場合\",0,0,0,0,0,0",
+                "19442,\"40902\",\"4090142\",\"ﾔﾏﾅｼｹﾝ\",\"ｷﾀﾂﾙｸﾞﾝｺｽｹﾞﾑﾗ\",\"ｺｽｹﾞﾑﾗﾉﾂｷﾞﾆ1-663ﾊﾞﾝﾁｶﾞｸﾙﾊﾞｱｲ\",\"山梨県\",\"北都留郡小菅村\",\"小菅村の次に１～６６３番地がくる場合\",1,0,0,0,0,0",
+                "19442,\"40902\",\"4090211\",\"ﾔﾏﾅｼｹﾝ\",\"ｷﾀﾂﾙｸﾞﾝｺｽｹﾞﾑﾗ\",\"ｺｽｹﾞﾑﾗﾉﾂｷﾞﾆ664ﾊﾞﾝﾁｲｺｳｶﾞｸﾙﾊﾞｱｲ\",\"山梨県\",\"北都留郡小菅村\",\"小菅村の次に６６４番地以降がくる場合\",1,0,0,0,0,0"
+            };
+            var postals = inputs.Select(_ => PostalLoader.Parse(_, ParseMode.Ken));
+            var normalizar = new PostalNormalizar();
+            var normalized = normalizar.Normalize(postals).ToArray();
+
+            var streets = normalized.Where(p => p.Street.Contains("小菅村")).Select(p => p.Street);
+            Assert.AreEqual(string.Join(",", streets), "");
+        }
+
         [TestMethod]
         public void 香川県仲多度郡琴平町()
         {

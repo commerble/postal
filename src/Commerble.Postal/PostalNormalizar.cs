@@ -34,11 +34,13 @@ namespace Commerble.Postal
         {
             var normal = street;
             var regexs = new[]
-            {
-                // 共和町って書いてるじゃん
-                Tuple.Create("（キョウワマチ）", "（キョウワマチ）",""), 
-                // 成田すまぬ
+{
+                // 特殊フォーマットな自治体
+                Tuple.Create("（キョウワマチ）", "（キョウワマチ）",""),
                 Tuple.Create("（成田国際空港内）", "（成田国際空港内）",""),
+                Tuple.Create("小菅村", "小菅村.*",""),
+                Tuple.Create("琴平町", "琴平町.*",""),
+                // 頻出なパターン
                 Tuple.Create("の次に", ".*の次に.*",""),
                 Tuple.Create("「その他」", "「その他」",""),
                 Tuple.Create("（その他）", "（その他）",""),
@@ -56,11 +58,9 @@ namespace Commerble.Postal
                 Tuple.Create("の次に番地がくる場合", ".*の次に番地がくる場合", ""),
                 Tuple.Create("一円", ".*一円", ""),
                 // 番地・丁目・番は救わない(カギカッコを先に削除ね)
-                Tuple.Create("「", "「.*[０-９]*(丁目|番地).*」", ""), 
+                Tuple.Create("「", "「.*[０-９]*(丁目|番地).*」", ""),
                 Tuple.Create("（", "（.*[０-９]*(丁目|番地|番).*）", ""),
-                // 小豆郡土庄町すまぬ
                 Tuple.Create("甲、乙", "甲、乙（[^）]*）", "甲、乙"),
-                // 岩手すまぬ
                 Tuple.Create("地割～", "（?第?[０-９]*地割～.*$", ""),
                 Tuple.Create("地割、", "（?第?[０-９]*地割、.*$", ""),
             };
