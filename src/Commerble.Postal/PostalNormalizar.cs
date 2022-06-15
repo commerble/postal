@@ -38,7 +38,8 @@ namespace Commerble.Postal
                 // 共和町って書いてるじゃん
                 Tuple.Create("（キョウワマチ）", "（キョウワマチ）",""), 
                 // 成田すまぬ
-                Tuple.Create("（成田国際空港内）", "（成田国際空港内）",""), 
+                Tuple.Create("（成田国際空港内）", "（成田国際空港内）",""),
+                Tuple.Create("の次に", ".*の次に.*",""),
                 Tuple.Create("「その他」", "「その他」",""),
                 Tuple.Create("（その他）", "（その他）",""),
                 Tuple.Create("（番地のみ）", "（番地のみ）",""),
