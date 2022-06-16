@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
+using System.Text;
 
 namespace Commerble.Postal.Tests
 {
@@ -408,6 +409,37 @@ namespace Commerble.Postal.Tests
 
             var streets = normalized.Where(p => p.Street.Contains("琴平町")).Select(p => p.Street);
             Assert.AreEqual(string.Join(",", streets), "");
+        }
+
+        [TestMethod]
+        public void 全件抽出()
+        {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            var postalFetcher = new PostalFetcher(AppDomain.CurrentDomain.BaseDirectory);
+            postalFetcher.LoadKen();
+            postalFetcher.LoadJigyosyo();
+
+            var countRK = postalFetcher.RawKenList.Select(p => p.Code).Distinct().Count();
+            var countNK = postalFetcher.NormalizedKenList.Select(p => p.Code).Distinct().Count();
+
+            Assert.AreEqual(countRK, countNK);
+
+            var countRJ = postalFetcher.RawJigyosyoList.Select(p => p.Code).Distinct().Count();
+            var countNJ = postalFetcher.NormalizedJigyosyoList.Select(p => p.Code).Distinct().Count();
+
+            Assert.AreEqual(countRK, countNK);
+
+            var raw = postalFetcher.RawPostalList.Select(p => p.Code).Distinct().OrderBy(p => p);
+            var normalized = postalFetcher.NormalizedPostalList.Select(p => p.Code).Distinct().OrderBy(p => p);
+
+            var diff = raw.Except(normalized);
+            Console.WriteLine("raw - normalized: {0}件", diff.Count());
+            foreach (var code in diff)
+            {
+                Console.WriteLine(diff);
+            }
+
+            Assert.IsTrue(raw.SequenceEqual(normalized));
         }
     }
 }
