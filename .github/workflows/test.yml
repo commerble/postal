@@ -8,21 +8,22 @@ on:
       - '.github/workflows/test.yml'
   schedule:
     - cron:  '0 0 10 * *'
-defaults:
-  run:
-    shell: bash
-    working-directory: ./src
 jobs:
   test:
     runs-on: windows-latest
     steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      
     - name: Setup dotnet
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 2.1.x
-        
+
     - name: Build projects
+      working-directory: ./src
       run: dotnet build
 
     - name: Run unit tests
+      working-directory: ./src
       run: dotnet test
