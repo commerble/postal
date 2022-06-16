@@ -17,6 +17,9 @@ jobs:
       with:
         dotnet-version: 2.1.x
 
+    - name: Directory info
+      run: ls
+    
     - name: Build projects
       working-directory: src
       run: dotnet build
