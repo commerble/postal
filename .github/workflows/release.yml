@@ -10,7 +10,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-      
+
     - name: Setup dotnet
       uses: actions/setup-dotnet@v1
       with:
@@ -26,7 +26,7 @@ jobs:
 
     - name: Pack package
       working-directory: src/Commerble.Postal
-      run: dotnet pack -c Release /p:Version=${{github.event.release.tag_name}} 
+      run: dotnet pack -c Release -p:Version=${{github.event.release.tag_name}} -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
 
     - name: Publish package to NuGet.org
       working-directory: src/Commerble.Postal/bin/Release/
