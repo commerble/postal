@@ -58,7 +58,7 @@ namespace Commerble.Postal.ConsoleApp
                 var razorEngine = new RazorLightEngineBuilder()
                     .UseMemoryCachingProvider()
                     .Build();
-                var rendered = razorEngine.CompileRenderAsync("template", template, normalized).Result;
+                var rendered = razorEngine.CompileRenderStringAsync("template", template, normalized).Result;
                 Console.WriteLine(rendered);
             }
         }
