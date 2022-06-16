@@ -17,13 +17,10 @@ jobs:
       with:
         dotnet-version: 2.1.x
 
-    - name: Directory info
-      run: ls
-    
     - name: Build projects
-      working-directory: src
+      working-directory: ./src
       run: dotnet build
 
     - name: Run unit tests
-      working-directory: src
+      working-directory: ./src
       run: dotnet test
