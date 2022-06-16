@@ -28,6 +28,6 @@ jobs:
       working-directory: src/Commerble.Postal
       run: dotnet pack -c Release /p:Version=${{github.event.release.tag_name}} 
 
-    # - name: Publish package to NuGet.org
-    #   working-directory: src/Commerble.Postal/bin/Release/
-    #   run: dotnet nuget push *.nupkg -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_TOKEN }}
+    - name: Publish package to NuGet.org
+      working-directory: src/Commerble.Postal/bin/Release/
+      run: dotnet nuget push *.nupkg -s https://api.nuget.org/v3/index.json -k ${{ secrets.NUGET_TOKEN }}
