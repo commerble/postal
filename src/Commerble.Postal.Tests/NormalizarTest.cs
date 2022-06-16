@@ -419,16 +419,6 @@ namespace Commerble.Postal.Tests
             postalFetcher.LoadKen();
             postalFetcher.LoadJigyosyo();
 
-            var countRK = postalFetcher.RawKenList.Select(p => p.Code).Distinct().Count();
-            var countNK = postalFetcher.NormalizedKenList.Select(p => p.Code).Distinct().Count();
-
-            Assert.AreEqual(countRK, countNK);
-
-            var countRJ = postalFetcher.RawJigyosyoList.Select(p => p.Code).Distinct().Count();
-            var countNJ = postalFetcher.NormalizedJigyosyoList.Select(p => p.Code).Distinct().Count();
-
-            Assert.AreEqual(countRK, countNK);
-
             var raw = postalFetcher.RawPostalList.Select(p => p.Code).Distinct().OrderBy(p => p);
             var normalized = postalFetcher.NormalizedPostalList.Select(p => p.Code).Distinct().OrderBy(p => p);
 
@@ -436,7 +426,7 @@ namespace Commerble.Postal.Tests
             Console.WriteLine("raw - normalized: {0}件", diff.Count());
             foreach (var code in diff)
             {
-                Console.WriteLine(diff);
+                Console.WriteLine(code);
             }
 
             Assert.IsTrue(raw.SequenceEqual(normalized));
