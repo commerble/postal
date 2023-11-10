@@ -419,8 +419,8 @@ namespace Commerble.Postal.Tests
             postalFetcher.LoadKen();
             postalFetcher.LoadJigyosyo();
 
-            var raw = postalFetcher.RawPostalList.Select(p => p.Code).Distinct().OrderBy(p => p);
-            var normalized = postalFetcher.NormalizedPostalList.Select(p => p.Code).Distinct().OrderBy(p => p);
+            var raw = postalFetcher.RawPostalList.Select(p => p.Code).Distinct().OrderBy(p => p).ToArray();
+            var normalized = postalFetcher.NormalizedPostalList.Select(p => p.Code).Distinct().OrderBy(p => p).ToArray();
 
             Console.WriteLine("raw: {0}件", raw.Count());
             Console.WriteLine("normalized: {0}件", normalized.Count());

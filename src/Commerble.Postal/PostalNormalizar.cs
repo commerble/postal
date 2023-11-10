@@ -9,18 +9,24 @@ namespace Commerble.Postal
     {
         private IEnumerable<PostalCode> Merge(IEnumerable<PostalCode> postals)
         {
-            // 郵便番号が一致してる行(カンマで続きデータになってる)を連結
+            //郵便番号が一致してる行(カンマで続きデータになってる)を連結
             var list = postals.ToArray();
             var merged = new List<PostalCode>();
+            int calcNest(string street)
+                => street.ToCharArray().Count(c => c == '（') - street.ToCharArray().Count(c => c == '）');
+
             for (var i = 0; i < list.Length; i++)
             {
                 var current = list[i];
-                // 開始カッコとカンマがあったら、先行してる行を郵便番号が同じ間連結していく
-                if (current.Street.Contains("（") && (current.Street.Contains("、") || current.Street.Contains("・")))
+                //開始カッコと終了カッコに差があれば、差がなくなるまで次行をマージし続ける
+                var nest = calcNest(current.Street);
+                if (nest > 0)
                 {
-                    for (; i + 1 < list.Length && current.Code == list[i + 1].Code;)
+                    for (; i + 1 < list.Length && current.Code == list[i + 1].Code && nest > 0;)
                     {
-                        current.Street += list[i + 1].Street;
+                        var street = list[i + 1].Street;
+                        current.Street += street;
+                        nest += calcNest(street);
                         i++;
                     }
                 }
