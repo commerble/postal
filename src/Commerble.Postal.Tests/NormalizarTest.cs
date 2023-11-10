@@ -422,6 +422,9 @@ namespace Commerble.Postal.Tests
             var raw = postalFetcher.RawPostalList.Select(p => p.Code).Distinct().OrderBy(p => p);
             var normalized = postalFetcher.NormalizedPostalList.Select(p => p.Code).Distinct().OrderBy(p => p);
 
+            Console.WriteLine("raw: {0}件", raw.Count());
+            Console.WriteLine("normalized: {0}件", normalized.Count());
+
             var diff = raw.Except(normalized);
             Console.WriteLine("raw - normalized: {0}件", diff.Count());
             foreach (var code in diff)

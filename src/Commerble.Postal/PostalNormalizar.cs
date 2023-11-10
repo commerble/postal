@@ -16,7 +16,7 @@ namespace Commerble.Postal
             {
                 var current = list[i];
                 // 開始カッコとカンマがあったら、先行してる行を郵便番号が同じ間連結していく
-                if (current.Street.Contains("（") && current.Street.Contains("、"))
+                if (current.Street.Contains("（") && (current.Street.Contains("、") || current.Street.Contains("・")))
                 {
                     for (; i + 1 < list.Length && current.Code == list[i + 1].Code;)
                     {
