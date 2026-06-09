@@ -12,9 +12,9 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Setup dotnet
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@9a946fdbd5fb07b82b2f5a4466058b876ab72bb2
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 10.x
 
     - name: Build projects
       working-directory: src

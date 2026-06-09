@@ -10,13 +10,13 @@ using System.Text;
 namespace Commerble.Postal.Tests
 {
     public class PostalFetcher
-    {
-        private const string KenUrl = "https://www.post.japanpost.jp/zipcode/dl/kogaki/zip/ken_all.zip";
-        private const string KenFileName = "KEN_ALL.CSV";
-        private const string JigyosyoUrl = "https://www.post.japanpost.jp/zipcode/dl/jigyosyo/zip/jigyosyo.zip";
-        private const string JigyosyoFileName = "JIGYOSYO.CSV";
+	{
+		private const string KenUrl = "https://www.post.japanpost.jp/service/search/zipcode/download/kogaki/zip/ken_all.zip";
+		private const string KenFileName = "KEN_ALL.CSV";
+		private const string JigyosyoUrl = "https://www.post.japanpost.jp/service/search/zipcode/download/office/zip/jigyosyo.zip";
+		private const string JigyosyoFileName = "JIGYOSYO.CSV";
 
-        private string _workingDir = null;
+		private string _workingDir = null;
 
         public IEnumerable<PostalCode> RawKenList { get; private set; }
         public IEnumerable<PostalCode> RawJigyosyoList { get; private set; }
